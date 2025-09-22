@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  // Form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
+
   // Add global styles to fix viewport issues
   useEffect(() => {
     document.body.style.margin = '0';
@@ -22,6 +31,48 @@ export default function Home() {
     };
   }, []);
 
+  // Form handlers
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Reset status
+    setSubmitStatus(null);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+        console.error('Feedback submission failed:', data.message);
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+      console.error('Network error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div style={{
       backgroundColor: '#f8fafc', 
@@ -34,8 +85,10 @@ export default function Home() {
     }}>
       {/* Hero Section */}
       <section style={{
-        backgroundColor: '#f8fafc', 
-        padding: '80px 24px', 
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%)',
+        backgroundSize: '400% 400%',
+        animation: 'gradientShift 15s ease infinite',
+        padding: '100px 24px', 
         width: '100%',
         boxSizing: 'border-box',
         position: 'relative',
@@ -53,52 +106,62 @@ export default function Home() {
           {/* Left Side - Text Content */}
           <div className="hero-text" style={{textAlign: 'left'}}>
             <h1 style={{
-              color: '#1f2937',
-              fontSize: '48px',
-              fontWeight: 'bold',
+              color: 'white',
+              fontSize: '52px',
+              fontWeight: '900',
               marginBottom: '24px',
-              lineHeight: '1.2',
-              animation: 'fadeInUp 1s ease-out'
+              lineHeight: '1.1',
+              animation: 'slideInLeft 1s ease-out',
+              textShadow: '0 4px 20px rgba(0,0,0,0.3)'
             }}>
-              Build Your <span style={{color: '#7c3aed'}}>Professional</span><br />
+              Build Your <span style={{
+                color: '#fbbf24', 
+                background: 'linear-gradient(45deg, #fbbf24, #f59e0b)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>Professional</span><br />
               Resume in Minutes
             </h1>
             <p style={{
-              color: '#6b7280',
-              fontSize: '20px',
-              marginBottom: '32px',
+              color: 'rgba(255,255,255,0.9)',
+              fontSize: '22px',
+              marginBottom: '40px',
               lineHeight: '1.6',
-              animation: 'fadeInUp 1s ease-out 0.2s both'
+              animation: 'slideInLeft 1s ease-out 0.2s both',
+              textShadow: '0 2px 10px rgba(0,0,0,0.2)'
             }}>
               Create ATS-friendly resumes that get you noticed by top companies like Google, Microsoft, Amazon and more.
             </p>
             <div style={{
               display: 'flex',
-              gap: '16px',
+              gap: '20px',
               flexWrap: 'wrap',
-              animation: 'fadeInUp 1s ease-out 0.4s both'
+              animation: 'slideInLeft 1s ease-out 0.4s both'
             }}>
               <Link 
                 to="/builder" 
                 style={{
-                  background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)',
-                  color: 'white',
-                  padding: '16px 32px',
-                  borderRadius: '12px',
+                  background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+                  color: '#1f2937',
+                  padding: '18px 36px',
+                  borderRadius: '50px',
                   fontSize: '18px',
-                  fontWeight: '600',
+                  fontWeight: '700',
                   textDecoration: 'none',
                   display: 'inline-block',
-                  boxShadow: '0 8px 24px rgba(124,58,237,0.3)',
-                  transition: 'all 0.3s ease'
+                  boxShadow: '0 10px 30px rgba(251,191,36,0.4)',
+                  transition: 'all 0.3s ease',
+                  transform: 'perspective(1000px) rotateX(0deg)',
+                  animation: 'pulse 2s infinite'
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-3px)';
-                  e.target.style.boxShadow = '0 12px 32px rgba(124,58,237,0.4)';
+                  e.target.style.transform = 'translateY(-5px) scale(1.05)';
+                  e.target.style.boxShadow = '0 15px 40px rgba(251,191,36,0.6)';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0px)';
-                  e.target.style.boxShadow = '0 8px 24px rgba(124,58,237,0.3)';
+                  e.target.style.transform = 'translateY(0px) scale(1)';
+                  e.target.style.boxShadow = '0 10px 30px rgba(251,191,36,0.4)';
                 }}
               >
                 Create Your Resume
@@ -106,26 +169,28 @@ export default function Home() {
               <Link 
                 to="/search" 
                 style={{
-                  backgroundColor: 'white',
-                  color: '#7c3aed',
-                  padding: '16px 32px',
-                  borderRadius: '12px',
+                  backgroundColor: 'rgba(255,255,255,0.15)',
+                  color: 'white',
+                  padding: '18px 36px',
+                  borderRadius: '50px',
                   fontSize: '18px',
-                  fontWeight: '600',
+                  fontWeight: '700',
                   textDecoration: 'none',
                   display: 'inline-block',
-                  border: '2px solid #7c3aed',
-                  transition: 'all 0.3s ease'
+                  border: '2px solid rgba(255,255,255,0.3)',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 8px 25px rgba(0,0,0,0.1)'
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#7c3aed';
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateY(-3px)';
+                  e.target.style.backgroundColor = 'rgba(255,255,255,0.25)';
+                  e.target.style.transform = 'translateY(-5px) scale(1.05)';
+                  e.target.style.boxShadow = '0 15px 40px rgba(0,0,0,0.2)';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = 'white';
-                  e.target.style.color = '#7c3aed';
-                  e.target.style.transform = 'translateY(0px)';
+                  e.target.style.backgroundColor = 'rgba(255,255,255,0.15)';
+                  e.target.style.transform = 'translateY(0px) scale(1)';
+                  e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
                 }}
               >
                 Browse Templates
@@ -133,13 +198,13 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Side - Resume Mockup */}
+          {/* Right Side - Enhanced Resume Mockup */}
           <div className="resume-mockup" style={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             position: 'relative',
-            animation: 'fadeInRight 1s ease-out 0.6s both'
+            animation: 'slideInRight 1s ease-out 0.6s both'
           }}>
             {/* Floating Resume Cards */}
             <div style={{
@@ -152,15 +217,17 @@ export default function Home() {
                 position: 'absolute',
                 top: '0',
                 left: '20px',
-                width: '240px',
-                height: '320px',
+                width: '260px',
+                height: '340px',
                 backgroundColor: 'white',
-                borderRadius: '12px',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
-                padding: '24px',
+                borderRadius: '16px',
+                boxShadow: '0 25px 50px rgba(0,0,0,0.25)',
+                padding: '28px',
                 zIndex: 3,
                 animation: 'float 3s ease-in-out infinite',
-                border: '1px solid #f1f5f9'
+                border: '2px solid rgba(255,255,255,0.2)',
+                backdropFilter: 'blur(10px)',
+                transform: 'perspective(1000px) rotateY(-5deg)'
               }}>
                 {/* Resume Header */}
                 <div style={{
@@ -271,87 +338,235 @@ export default function Home() {
                 border: '1px solid #f1f5f9'
               }}></div>
 
-              {/* Floating Icons */}
+              {/* Enhanced Floating Icons */}
               <div style={{
                 position: 'absolute',
-                top: '-20px',
-                right: '10px',
-                width: '40px',
-                height: '40px',
-                backgroundColor: '#10b981',
+                top: '-25px',
+                right: '15px',
+                width: '50px',
+                height: '50px',
+                background: 'linear-gradient(135deg, #10b981, #059669)',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 8px 16px rgba(16,185,129,0.3)',
+                boxShadow: '0 12px 25px rgba(16,185,129,0.4)',
                 animation: 'bounce 2s ease-in-out infinite',
-                zIndex: 4
+                zIndex: 4,
+                border: '3px solid rgba(255,255,255,0.3)'
               }}>
-                <svg style={{color: 'white', width: '20px', height: '20px'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <svg style={{color: 'white', width: '24px', height: '24px'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
 
               <div style={{
                 position: 'absolute',
-                bottom: '20px',
-                right: '-10px',
-                width: '36px',
-                height: '36px',
-                backgroundColor: '#f59e0b',
+                bottom: '25px',
+                right: '-15px',
+                width: '45px',
+                height: '45px',
+                background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 6px 12px rgba(245,158,11,0.3)',
+                boxShadow: '0 10px 20px rgba(251,191,36,0.4)',
                 animation: 'bounce 2s ease-in-out infinite 1s',
-                zIndex: 4
+                zIndex: 4,
+                border: '3px solid rgba(255,255,255,0.3)'
               }}>
-                <svg style={{color: 'white', width: '18px', height: '18px'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                <svg style={{color: 'white', width: '22px', height: '22px'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Background Elements */}
+        {/* Animated Background Elements */}
         <div style={{
           position: 'absolute',
           top: '10%',
           left: '10%',
-          width: '100px',
-          height: '100px',
-          background: 'linear-gradient(135deg, #7c3aed20, #a855f720)',
+          width: '120px',
+          height: '120px',
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
           borderRadius: '50%',
-          animation: 'float 4s ease-in-out infinite'
+          animation: 'float 6s ease-in-out infinite',
+          backdropFilter: 'blur(10px)'
         }}></div>
         <div style={{
           position: 'absolute',
-          bottom: '15%',
-          right: '15%',
-          width: '80px',
-          height: '80px',
-          background: 'linear-gradient(135deg, #06b6d420, #0891b220)',
+          bottom: '20%',
+          right: '10%',
+          width: '90px',
+          height: '90px',
+          background: 'linear-gradient(135deg, rgba(251,191,36,0.3), rgba(245,158,11,0.1))',
           borderRadius: '50%',
           animation: 'float 4s ease-in-out infinite 2s'
         }}></div>
+        <div style={{
+          position: 'absolute',
+          top: '30%',
+          right: '20%',
+          width: '60px',
+          height: '60px',
+          background: 'rgba(255,255,255,0.08)',
+          borderRadius: '50%',
+          animation: 'float 5s ease-in-out infinite 1s'
+        }}></div>
+        <div style={{
+          position: 'absolute',
+          bottom: '30%',
+          left: '5%',
+          width: '40px',
+          height: '40px',
+          background: 'rgba(251,191,36,0.2)',
+          borderRadius: '50%',
+          animation: 'float 7s ease-in-out infinite 3s'
+        }}></div>
+        
+        {/* Geometric Shapes */}
+        <div style={{
+          position: 'absolute',
+          top: '20%',
+          right: '5%',
+          width: '80px',
+          height: '80px',
+          background: 'linear-gradient(45deg, rgba(255,255,255,0.1), transparent)',
+          transform: 'rotate(45deg)',
+          animation: 'rotate 20s linear infinite'
+        }}></div>
+        <div style={{
+          position: 'absolute',
+          bottom: '10%',
+          left: '15%',
+          width: '100px',
+          height: '100px',
+          border: '2px solid rgba(255,255,255,0.1)',
+          borderRadius: '20px',
+          animation: 'float 8s ease-in-out infinite 1.5s'
+        }}></div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" style={{
-        backgroundColor: 'white', 
+      {/* Stats Section */}
+      <section style={{
+        backgroundColor: 'white',
         padding: '80px 24px',
         width: '100%',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        borderTop: '1px solid #f1f5f9'
       }}>
-        <h2 style={{
-          color: '#1f2937',
-          fontSize: '36px',
-          fontWeight: 'bold',
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '60px',
+          textAlign: 'center'
+        }}>
+          {/* Stat 1 */}
+          <div style={{
+            animation: 'fadeInUp 0.8s ease-out 0.1s both'
+          }}>
+            <div style={{
+              fontSize: '48px',
+              fontWeight: '900',
+              color: '#7c3aed',
+              marginBottom: '12px',
+              animation: 'countUp 2s ease-out 0.5s both'
+            }}>50,000+</div>
+            <div style={{
+              fontSize: '18px',
+              color: '#64748b',
+              fontWeight: '600'
+            }}>Resumes Created</div>
+          </div>
+
+          {/* Stat 2 */}
+          <div style={{
+            animation: 'fadeInUp 0.8s ease-out 0.2s both'
+          }}>
+            <div style={{
+              fontSize: '48px',
+              fontWeight: '900',
+              color: '#10b981',
+              marginBottom: '12px',
+              animation: 'countUp 2s ease-out 0.7s both'
+            }}>95%</div>
+            <div style={{
+              fontSize: '18px',
+              color: '#64748b',
+              fontWeight: '600'
+            }}>Success Rate</div>
+          </div>
+
+          {/* Stat 3 */}
+          <div style={{
+            animation: 'fadeInUp 0.8s ease-out 0.3s both'
+          }}>
+            <div style={{
+              fontSize: '48px',
+              fontWeight: '900',
+              color: '#f59e0b',
+              marginBottom: '12px',
+              animation: 'countUp 2s ease-out 0.9s both'
+            }}>85</div>
+            <div style={{
+              fontSize: '18px',
+              color: '#64748b',
+              fontWeight: '600'
+            }}>Template Designs</div>
+          </div>
+
+          {/* Stat 4 */}
+          <div style={{
+            animation: 'fadeInUp 0.8s ease-out 0.4s both'
+          }}>
+            <div style={{
+              fontSize: '48px',
+              fontWeight: '900',
+              color: '#06b6d4',
+              marginBottom: '12px',
+              animation: 'countUp 2s ease-out 1.1s both'
+            }}>24/7</div>
+            <div style={{
+              fontSize: '18px',
+              color: '#64748b',
+              fontWeight: '600'
+            }}>AI Support</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Features Section */}
+      <section id="features" style={{
+        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)', 
+        padding: '100px 24px',
+        width: '100%',
+        boxSizing: 'border-box',
+        position: 'relative'
+      }}>
+        <div style={{
           textAlign: 'center',
-          marginBottom: '48px'
-        }}>Features</h2>
+          marginBottom: '80px'
+        }}>
+          <h2 style={{
+            color: '#1f2937',
+            fontSize: '48px',
+            fontWeight: '900',
+            marginBottom: '16px',
+            animation: 'fadeInUp 0.8s ease-out'
+          }}>Powerful Features</h2>
+          <p style={{
+            color: '#64748b',
+            fontSize: '20px',
+            maxWidth: '600px',
+            margin: '0 auto',
+            animation: 'fadeInUp 0.8s ease-out 0.2s both'
+          }}>Everything you need to create professional resumes that stand out</p>
+        </div>
         
         <div style={{
           maxWidth: '1200px', 
@@ -727,82 +942,171 @@ export default function Home() {
             boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
             animation: 'fadeInUp 0.8s ease-out 0.3s both'
           }}>
-            <form style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
+            {/* Success/Error Messages */}
+            {submitStatus === 'success' && (
+              <div style={{
+                backgroundColor: '#d1fae5',
+                border: '2px solid #10b981',
+                borderRadius: '12px',
+                padding: '16px',
+                marginBottom: '24px',
+                textAlign: 'center'
+              }}>
+                <div style={{
+                  color: '#10b981',
+                  fontWeight: '600',
+                  fontSize: '16px',
+                  marginBottom: '4px'
+                }}>✓ Message Sent Successfully!</div>
+                <div style={{
+                  color: '#059669',
+                  fontSize: '14px'
+                }}>Thank you for your feedback. We'll get back to you soon!</div>
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div style={{
+                backgroundColor: '#fee2e2',
+                border: '2px solid #ef4444',
+                borderRadius: '12px',
+                padding: '16px',
+                marginBottom: '24px',
+                textAlign: 'center'
+              }}>
+                <div style={{
+                  color: '#ef4444',
+                  fontWeight: '600',
+                  fontSize: '16px',
+                  marginBottom: '4px'
+                }}>✗ Message Failed to Send</div>
+                <div style={{
+                  color: '#dc2626',
+                  fontSize: '14px'
+                }}>Please try again or contact us directly at support@resumegenie.com</div>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
               <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px'}}>
                 <input 
                   type="text" 
+                  name="name"
                   placeholder="Your Name" 
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  disabled={isSubmitting}
                   style={{
                     width: '100%', 
                     padding: '16px 20px', 
                     border: '2px solid #e2e8f0', 
                     borderRadius: '12px', 
                     fontSize: '16px',
-                    backgroundColor: 'white',
+                    color: '#1f2937',
+                    backgroundColor: isSubmitting ? '#f9fafb' : 'white',
                     boxSizing: 'border-box',
-                    transition: 'border-color 0.3s ease'
+                    transition: 'border-color 0.3s ease',
+                    opacity: isSubmitting ? 0.7 : 1
                   }}
                   onFocus={(e) => e.target.style.borderColor = '#7c3aed'}
                   onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
                 />
                 <input 
                   type="email" 
+                  name="email"
                   placeholder="Your Email" 
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  disabled={isSubmitting}
                   style={{
                     width: '100%', 
                     padding: '16px 20px', 
                     border: '2px solid #e2e8f0', 
                     borderRadius: '12px', 
                     fontSize: '16px',
-                    backgroundColor: 'white',
+                    color: '#1f2937',
+                    backgroundColor: isSubmitting ? '#f9fafb' : 'white',
                     boxSizing: 'border-box',
-                    transition: 'border-color 0.3s ease'
+                    transition: 'border-color 0.3s ease',
+                    opacity: isSubmitting ? 0.7 : 1
                   }}
                   onFocus={(e) => e.target.style.borderColor = '#7c3aed'}
                   onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
                 />
               </div>
               <textarea 
+                name="message"
                 placeholder="Your message..."
                 rows={5}
+                value={formData.message}
+                onChange={handleInputChange}
+                required
+                disabled={isSubmitting}
                 style={{
                   width: '100%', 
                   padding: '16px 20px', 
                   border: '2px solid #e2e8f0', 
                   borderRadius: '12px', 
                   fontSize: '16px', 
+                  color: '#1f2937',
                   resize: 'vertical',
-                  backgroundColor: 'white',
+                  backgroundColor: isSubmitting ? '#f9fafb' : 'white',
                   boxSizing: 'border-box',
-                  transition: 'border-color 0.3s ease'
+                  transition: 'border-color 0.3s ease',
+                  opacity: isSubmitting ? 0.7 : 1
                 }}
                 onFocus={(e) => e.target.style.borderColor = '#7c3aed'}
                 onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
               ></textarea>
               <button 
                 type="submit" 
+                disabled={isSubmitting}
                 style={{
-                  background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)',
+                  background: isSubmitting 
+                    ? 'linear-gradient(135deg, #9ca3af 0%, #6b7280 100%)' 
+                    : 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)',
                   color: 'white', 
                   padding: '16px 32px', 
                   borderRadius: '12px', 
                   fontWeight: '600', 
                   border: 'none', 
-                  cursor: 'pointer',
+                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
                   fontSize: '16px',
-                  boxShadow: '0 8px 24px rgba(124,58,237,0.3)',
+                  boxShadow: isSubmitting 
+                    ? '0 4px 12px rgba(156,163,175,0.3)' 
+                    : '0 8px 24px rgba(124,58,237,0.3)',
                   transition: 'transform 0.2s ease, box-shadow 0.2s ease'
                 }}
                 onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 12px 32px rgba(124,58,237,0.4)';
+                  if (!isSubmitting) {
+                    e.target.style.transform = 'translateY(-2px)';
+                    e.target.style.boxShadow = '0 12px 32px rgba(124,58,237,0.4)';
+                  }
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = '0 8px 24px rgba(124,58,237,0.3)';
+                  if (!isSubmitting) {
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = '0 8px 24px rgba(124,58,237,0.3)';
+                  }
                 }}
               >
-                Send Message
+                {isSubmitting ? (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                    <div style={{
+                      width: '16px',
+                      height: '16px',
+                      border: '2px solid #ffffff40',
+                      borderTop: '2px solid #ffffff',
+                      borderRadius: '50%',
+                      animation: 'spin 1s linear infinite'
+                    }}></div>
+                    Sending...
+                  </div>
+                ) : (
+                  'Send Message'
+                )}
               </button>
             </form>
           </div>
@@ -1054,6 +1358,81 @@ export default function Home() {
           }
           50% {
             transform: translateY(-8px);
+          }
+        }
+
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+
+        @keyframes slideInLeft {
+          0% {
+            opacity: 0;
+            transform: translateX(-50px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            box-shadow: 0 10px 30px rgba(251,191,36,0.4);
+          }
+          50% {
+            box-shadow: 0 15px 40px rgba(251,191,36,0.6);
+          }
+        }
+
+        @keyframes rotate {
+          0% {
+            transform: rotate(45deg);
+          }
+          100% {
+            transform: rotate(405deg);
+          }
+        }
+
+        @keyframes slideInRight {
+          0% {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes countUp {
+          0% {
+            opacity: 0;
+            transform: scale(0.5);
+          }
+          50% {
+            transform: scale(1.1);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
           }
         }
 

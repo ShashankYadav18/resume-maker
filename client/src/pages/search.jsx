@@ -1793,6 +1793,406 @@ const allTemplates = [
           description: "Reduced bug rate by 60% and automated 80% of regression test suite"
         }]
       }
+    },
+    {
+      id: 71,
+      title: "Software Engineer with Photo",
+      description: "Modern sidebar template with prominent profile photo for tech professionals",
+      tags: ["Tech", "Software", "Photo", "Modern", "Professional"],
+      category: "Tech",
+      preview: "Sidebar template with circular photo and dark theme",
+      designType: "photo-sidebar",
+      colorScheme: "tech-dark",
+      templateData: {
+        personalInfo: {
+          name: "John Doe",
+          email: "john.doe@email.com",
+          phone: "+1 2345 6789",
+          address: "#1 road, city/state-0011"
+        },
+        summary: "I am a software engineer with experience in a variety of programming languages and a track record of delivering high-quality code. I am skilled in problem-solving and have a strong background in computer science. I am a strong communicator and enjoy working collaboratively with others.",
+        skills: ["SQL Database Management", "Linux/Unix Command line", "Python", "C++", "JAVA"],
+        experience: [{
+          position: "Senior Software Developer",
+          company: "Company - Country",
+          duration: "Jan 2022 - Dec 2023",
+          description: "Developed and maintained software using Java, Python, and C++. Led cross-functional teams to deliver successful software projects"
+        }, {
+          position: "Web Developer", 
+          company: "Company - Country",
+          duration: "Jan 2021 - Dec 2021",
+          description: "Developed and maintained various web applications using languages such as HTML, CSS, JavaScript, and PHP"
+        }]
+      }
+    },
+    {
+      id: 72,
+      title: "Marketing Manager Professional",
+      description: "Clean professional template for marketing and business professionals",
+      tags: ["Others", "Marketing", "Business", "Professional", "Clean"],
+      category: "Others",
+      preview: "Professional layout with contact sidebar and structured sections",
+      designType: "professional-sidebar",
+      colorScheme: "marketing-teal",
+      templateData: {
+        personalInfo: {
+          name: "Richard Sanchez",
+          email: "hello@reallygreatsite.com",
+          phone: "+123-456-7890",
+          address: "123 Anywhere St., Any City"
+        },
+        summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.",
+        skills: ["Project Management", "Public Relations", "Teamwork", "Time Management", "Leadership", "Effective Communication", "Critical Thinking"],
+        experience: [{
+          position: "Marketing Manager & Specialist",
+          company: "Borcelle Studio",  
+          duration: "2030 - PRESENT",
+          description: "Develop and execute comprehensive marketing strategies and campaigns that align with the company's goals and objectives. Lead, mentor, and manage a high-performing marketing team."
+        }, {
+          position: "Marketing Manager & Specialist",
+          company: "Fauget Studio",
+          duration: "2025 - 2029", 
+          description: "Create and manage the marketing budget, ensuring efficient allocation of resources and optimal spending. Oversee market research to identify emerging trends."
+        }]
+      }
+    },
+    {
+      id: 73,
+      title: "Student Resume Template",
+      description: "Modern template designed for students and recent graduates with strengths focus",
+      tags: ["Non-Tech", "Student", "Graduate", "Entry-Level", "Modern"],
+      category: "Non-Tech", 
+      preview: "Two-column layout with strengths and skills sections",
+      designType: "student-modern",
+      colorScheme: "student-purple",
+      templateData: {
+        personalInfo: {
+          name: "Henry Jackson",
+          email: "help@enhancv.com",
+          phone: "linkedin.com",
+          address: "Philadelphia, Pennsylvania"
+        },
+        summary: "High school student with experience as an intern at a major telecommunications company. Proven record of teamwork and problem-solving skills effectively implemented to increase project efficiency. Eager to apply these skills to new challenges. Skilled in Python and Java programming, and a dedicated community volunteer.",
+        skills: ["Teamwork", "Time Management", "Problem Solving", "Critical Thinking", "Microsoft Office"],
+        experience: [{
+          position: "Intern",
+          company: "Comcast Corporation",
+          duration: "2020 - 2020",
+          description: "Contributed to a team developing innovative solutions in telecommunications. Provided assistance to a team of 5 professionals resulting in a 15% increase in project efficiency."
+        }]
+      }
+    },
+    {
+      id: 74,
+      title: "Healthcare Professional Resume",
+      description: "Clean medical template for healthcare professionals and doctors",
+      tags: ["Medical", "Healthcare", "Doctor", "Nurse", "Clean"],
+      category: "Medical",
+      preview: "Professional medical layout with blue accents",
+      designType: "medical-professional",
+      colorScheme: "medical-navy",
+      templateData: {
+        personalInfo: {
+          name: "Dr. Sarah Mitchell",
+          email: "s.mitchell@hospital.com",
+          phone: "+1 (555) 234-5678",
+          address: "Boston, MA"
+        },
+        summary: "Board-certified physician with 10+ years of experience in internal medicine and patient care. Dedicated to providing exceptional healthcare services and improving patient outcomes.",
+        skills: ["Internal Medicine", "Patient Care", "Medical Research", "Clinical Diagnosis", "Healthcare Management", "EMR Systems"],
+        experience: [{
+          position: "Attending Physician",
+          company: "Boston Medical Center",
+          duration: "2018 - Present",
+          description: "Provide comprehensive medical care to diverse patient population, manage complex cases, mentor medical residents"
+        }]
+      }
+    },
+    {
+      id: 75,
+      title: "Finance Executive Resume",
+      description: "Executive template for finance professionals and analysts",
+      tags: ["Others", "Finance", "Executive", "Banking", "Professional"],
+      category: "Others",
+      preview: "Executive layout with gold accents for finance sector",
+      designType: "finance-executive",
+      colorScheme: "finance-navy",
+      templateData: {
+        personalInfo: {
+          name: "Michael Chen",
+          email: "m.chen@finance.com", 
+          phone: "+1 (555) 345-6789",
+          address: "New York, NY"
+        },
+        summary: "Senior finance executive with 15+ years of experience in investment banking, financial analysis, and portfolio management. Proven track record of driving revenue growth and optimizing financial performance.",
+        skills: ["Financial Analysis", "Investment Banking", "Portfolio Management", "Risk Assessment", "Financial Modeling", "Regulatory Compliance"],
+        experience: [{
+          position: "Vice President of Finance",
+          company: "Goldman Sachs",
+          duration: "2019 - Present", 
+          description: "Lead financial analysis for major client portfolios worth $500M+. Develop investment strategies and manage high-net-worth client relationships."
+        }]
+      }
+    },
+    {
+      id: 76,
+      title: "Creative Designer Portfolio",
+      description: "Artistic template showcasing creative work and design skills",
+      tags: ["Others", "Creative", "Design", "Portfolio", "Artistic"],
+      category: "Others",
+      preview: "Creative layout with visual elements for designers",
+      designType: "creative-showcase",
+      colorScheme: "creative-gradient",
+      templateData: {
+        personalInfo: {
+          name: "Emma Rodriguez",
+          email: "emma.design@email.com",
+          phone: "+1 (555) 456-7890", 
+          address: "Los Angeles, CA"
+        },
+        summary: "Creative designer with 8+ years of experience in brand design, UI/UX, and digital marketing. Passionate about creating visually compelling designs that drive engagement and results.",
+        skills: ["Adobe Creative Suite", "UI/UX Design", "Brand Design", "Digital Marketing", "Typography", "Illustration"],
+        experience: [{
+          position: "Senior Creative Designer",
+          company: "Design Studio Inc",
+          duration: "2020 - Present",
+          description: "Lead creative campaigns for major brands, design user interfaces for mobile apps with 1M+ downloads"
+        }]
+      }
+    },
+    {
+      id: 77,
+      title: "Engineering Manager Resume",
+      description: "Technical leadership template for engineering managers",
+      tags: ["Tech", "Engineering", "Management", "Leadership", "Senior"],
+      category: "Tech",
+      preview: "Technical leadership layout with project focus",
+      designType: "engineering-manager",
+      colorScheme: "engineering-green",
+      templateData: {
+        personalInfo: {
+          name: "David Park",
+          email: "d.park@tech.com",
+          phone: "+1 (555) 567-8901",
+          address: "Seattle, WA"
+        },
+        summary: "Engineering manager with 12+ years of experience leading high-performance teams and delivering complex software solutions. Expert in agile methodologies and technical strategy.",
+        skills: ["Team Leadership", "Software Architecture", "Agile/Scrum", "Python", "AWS", "DevOps"],
+        experience: [{
+          position: "Engineering Manager",
+          company: "Microsoft",
+          duration: "2019 - Present",
+          description: "Lead team of 15 engineers developing cloud services used by millions of users. Improved deployment frequency by 300%"
+        }]
+      }
+    },
+    {
+      id: 78,
+      title: "Legal Professional Resume",
+      description: "Conservative professional template for legal practitioners",
+      tags: ["Others", "Legal", "Law", "Attorney", "Conservative"],
+      category: "Others", 
+      preview: "Traditional legal layout with formal styling",
+      designType: "legal-traditional",
+      colorScheme: "legal-navy",
+      templateData: {
+        personalInfo: {
+          name: "Jessica Thompson",
+          email: "j.thompson@lawfirm.com",
+          phone: "+1 (555) 678-9012",
+          address: "Washington, DC"
+        },
+        summary: "Experienced attorney specializing in corporate law and litigation with 14+ years of practice. Strong track record in complex legal cases and client representation.",
+        skills: ["Corporate Law", "Litigation", "Contract Law", "Legal Research", "Client Relations", "Court Proceedings"],
+        experience: [{
+          position: "Senior Partner",
+          company: "Thompson & Associates",
+          duration: "2015 - Present",
+          description: "Lead corporate legal matters for Fortune 500 companies, manage team of 8 attorneys, 95% case success rate"
+        }]
+      }
+    },
+    {
+      id: 79,
+      title: "Education Professional Resume", 
+      description: "Academic template for teachers and education professionals",
+      tags: ["Non-Tech", "Education", "Teacher", "Academic", "Professional"],
+      category: "Non-Tech",
+      preview: "Educational layout with teaching focus",
+      designType: "education-professional", 
+      colorScheme: "education-blue",
+      templateData: {
+        personalInfo: {
+          name: "Maria Garcia",
+          email: "m.garcia@school.edu",
+          phone: "+1 (555) 789-0123",
+          address: "Chicago, IL"
+        },
+        summary: "Dedicated educator with 11+ years of experience in curriculum development and student engagement. Passionate about fostering learning environments that inspire student success.",
+        skills: ["Curriculum Development", "Classroom Management", "Student Assessment", "Educational Technology", "Parent Communication", "Special Needs Support"],
+        experience: [{
+          position: "Senior Teacher",
+          company: "Lincoln Elementary School",
+          duration: "2018 - Present",
+          description: "Teach 4th grade students, develop innovative lesson plans, improved student test scores by 25%"
+        }]
+      }
+    },
+    {
+      id: 80,
+      title: "Business Analyst Resume",
+      description: "Professional template for business analysts and consultants",
+      tags: ["Others", "Business", "Analyst", "Consulting", "Professional"],
+      category: "Others",
+      preview: "Business-focused layout with analytical emphasis", 
+      designType: "business-analyst",
+      colorScheme: "business-teal",
+      templateData: {
+        personalInfo: {
+          name: "Robert Kim",
+          email: "r.kim@consulting.com",
+          phone: "+1 (555) 890-1234",
+          address: "Dallas, TX"
+        },
+        summary: "Business analyst with 9+ years of experience in process optimization and data analysis. Skilled in identifying business opportunities and implementing strategic solutions.",
+        skills: ["Business Analysis", "Data Analytics", "Process Improvement", "Project Management", "SQL", "Tableau"],
+        experience: [{
+          position: "Senior Business Analyst",
+          company: "Deloitte Consulting",
+          duration: "2019 - Present",
+          description: "Analyze business processes for clients, identify $2M+ in cost savings opportunities, lead digital transformation projects"
+        }]
+      }
+    },
+    {
+      id: 81,
+      title: "Pharmaceutical Scientist Resume",
+      description: "Scientific template for pharmaceutical and research professionals",
+      tags: ["Medical", "Pharmaceutical", "Research", "Science", "Professional"],
+      category: "Medical",
+      preview: "Scientific layout with research focus",
+      designType: "pharmaceutical-scientist",
+      colorScheme: "pharma-blue",
+      templateData: {
+        personalInfo: {
+          name: "Dr. Lisa Wang",
+          email: "l.wang@pharma.com",
+          phone: "+1 (555) 901-2345", 
+          address: "San Diego, CA"
+        },
+        summary: "Pharmaceutical scientist with 13+ years in drug development and clinical research. Expert in regulatory compliance and new drug applications with 5 successful FDA approvals.",
+        skills: ["Drug Development", "Clinical Research", "FDA Regulations", "Data Analysis", "Laboratory Management", "Scientific Writing"],
+        experience: [{
+          position: "Principal Scientist",
+          company: "Johnson & Johnson",
+          duration: "2017 - Present",
+          description: "Lead drug development programs from preclinical to Phase III trials, manage $50M+ research budget"
+        }]
+      }
+    },
+    {
+      id: 82,
+      title: "Architecture Professional Resume",
+      description: "Design-focused template for architects and urban planners",
+      tags: ["Others", "Architecture", "Design", "Construction", "Creative"],
+      category: "Others",
+      preview: "Architectural layout with design elements",
+      designType: "architecture-design",
+      colorScheme: "architecture-grey",
+      templateData: {
+        personalInfo: {
+          name: "Carlos Martinez",
+          email: "c.martinez@architect.com",
+          phone: "+1 (555) 012-3456",
+          address: "Miami, FL"
+        },
+        summary: "Licensed architect with 16+ years of experience in commercial and residential design. Specialized in sustainable architecture and LEED-certified projects.",
+        skills: ["Architectural Design", "AutoCAD", "Revit", "Sustainable Design", "Project Management", "3D Modeling"],
+        experience: [{
+          position: "Principal Architect",
+          company: "Martinez Architecture Firm",
+          duration: "2015 - Present",
+          description: "Design award-winning sustainable buildings, manage projects worth $100M+, 15 LEED-certified projects completed"
+        }]
+      }
+    },
+    {
+      id: 83,
+      title: "Cybersecurity Specialist Resume",
+      description: "Security-focused template for cybersecurity professionals",
+      tags: ["Tech", "Security", "Cybersecurity", "IT", "Professional"],
+      category: "Tech",
+      preview: "Security-themed layout with tech focus",
+      designType: "cybersecurity-pro",
+      colorScheme: "security-red",
+      templateData: {
+        personalInfo: {
+          name: "Alex Johnson",
+          email: "a.johnson@security.com",
+          phone: "+1 (555) 123-4567",
+          address: "Austin, TX"
+        },
+        summary: "Cybersecurity specialist with 10+ years of experience in threat analysis and security architecture. Certified in multiple security frameworks with expertise in incident response.",
+        skills: ["Penetration Testing", "Security Architecture", "Incident Response", "CISSP", "Ethical Hacking", "Risk Assessment"],
+        experience: [{
+          position: "Senior Security Analyst",
+          company: "CyberDefense Inc",
+          duration: "2019 - Present",
+          description: "Lead security assessments for enterprise clients, reduced security incidents by 60%, manage SOC team of 12"
+        }]
+      }
+    },
+    {
+      id: 84,
+      title: "Hospitality Manager Resume",
+      description: "Service-oriented template for hospitality and tourism professionals",
+      tags: ["Others", "Hospitality", "Management", "Service", "Tourism"],
+      category: "Others",
+      preview: "Hospitality layout with service focus",
+      designType: "hospitality-manager",
+      colorScheme: "hospitality-warm",
+      templateData: {
+        personalInfo: {
+          name: "Isabella Rodriguez",
+          email: "i.rodriguez@hotel.com",
+          phone: "+1 (555) 234-5678",
+          address: "Las Vegas, NV"
+        },
+        summary: "Hospitality manager with 12+ years of experience in luxury hotel operations and guest services. Expert in revenue optimization and team leadership.",
+        skills: ["Hotel Operations", "Guest Relations", "Revenue Management", "Team Leadership", "Event Planning", "Customer Service"],
+        experience: [{
+          position: "General Manager",
+          company: "Luxury Resort & Spa",
+          duration: "2018 - Present",
+          description: "Manage 200-room luxury resort, increased guest satisfaction scores to 95%, oversee staff of 150+"
+        }]
+      }
+    },
+    {
+      id: 85,
+      title: "Environmental Scientist Resume",
+      description: "Environmental template for sustainability and conservation professionals",
+      tags: ["Others", "Environmental", "Science", "Sustainability", "Research"],
+      category: "Others",
+      preview: "Environmental layout with green theme",
+      designType: "environmental-scientist",
+      colorScheme: "environmental-green",
+      templateData: {
+        personalInfo: {
+          name: "Dr. James Wilson",
+          email: "j.wilson@environmental.org",
+          phone: "+1 (555) 345-6789",
+          address: "Portland, OR"
+        },
+        summary: "Environmental scientist with 14+ years of experience in climate research and sustainability consulting. Published researcher with expertise in environmental impact assessment.",
+        skills: ["Environmental Assessment", "Climate Research", "Sustainability Consulting", "GIS", "Data Analysis", "Policy Development"],
+        experience: [{
+          position: "Senior Environmental Scientist",
+          company: "EPA Regional Office",
+          duration: "2016 - Present",
+          description: "Lead environmental impact studies for major infrastructure projects, published 25+ peer-reviewed papers"
+        }]
+      }
     }
 ];
 
@@ -1916,7 +2316,22 @@ export default function Search() {
       'hr-coral': { primary: '#dc2626', secondary: '#fef2f2', accent: '#f87171' },
       'marketing-magenta': { primary: '#be185d', secondary: '#fce7f3', accent: '#ec4899' },
       'pm-olive': { primary: '#365314', secondary: '#f7fee7', accent: '#84cc16' },
-      'qa-bronze': { primary: '#92400e', secondary: '#fef3c7', accent: '#d97706' }
+      'qa-bronze': { primary: '#92400e', secondary: '#fef3c7', accent: '#d97706' },
+      'tech-dark': { primary: '#1f2937', secondary: '#f9fafb', accent: '#3b82f6' },
+      'marketing-teal': { primary: '#0f766e', secondary: '#f0fdfa', accent: '#14b8a6' },
+      'student-purple': { primary: '#7c3aed', secondary: '#f5f3ff', accent: '#a855f7' },
+      'medical-navy': { primary: '#1e3a8a', secondary: '#eff6ff', accent: '#3b82f6' },
+      'finance-navy': { primary: '#1e40af', secondary: '#dbeafe', accent: '#2563eb' },
+      'creative-gradient': { primary: '#ec4899', secondary: '#fdf2f8', accent: '#f59e0b' },
+      'engineering-green': { primary: '#166534', secondary: '#f0fdf4', accent: '#22c55e' },
+      'legal-navy': { primary: '#1e3a8a', secondary: '#f8fafc', accent: '#475569' },
+      'education-blue': { primary: '#2563eb', secondary: '#eff6ff', accent: '#1d4ed8' },
+      'business-teal': { primary: '#0d9488', secondary: '#f0fdfa', accent: '#14b8a6' },
+      'pharma-blue': { primary: '#1e40af', secondary: '#dbeafe', accent: '#3b82f6' },
+      'architecture-grey': { primary: '#374151', secondary: '#f9fafb', accent: '#6b7280' },
+      'security-red': { primary: '#dc2626', secondary: '#fef2f2', accent: '#ef4444' },
+      'hospitality-warm': { primary: '#ea580c', secondary: '#fff7ed', accent: '#f97316' },
+      'environmental-green': { primary: '#059669', secondary: '#ecfdf5', accent: '#10b981' }
     };
     
     const currentColors = colors[colorScheme] || colors['purple'];
@@ -2135,6 +2550,21 @@ export default function Search() {
       case 'marketing-professional':
       case 'project-manager':
       case 'qa-professional':
+      case 'photo-sidebar':
+      case 'professional-sidebar':
+      case 'student-modern':
+      case 'medical-professional':
+      case 'finance-executive':
+      case 'creative-showcase':
+      case 'engineering-manager':
+      case 'legal-traditional':
+      case 'education-professional':
+      case 'business-analyst':
+      case 'pharmaceutical-scientist':
+      case 'architecture-design':
+      case 'cybersecurity-pro':
+      case 'hospitality-manager':
+      case 'environmental-scientist':
         return (
           <div style={{ padding: '15px' }}>
             <div style={{ 
@@ -2321,7 +2751,22 @@ export default function Search() {
                   'hr-coral': { primary: '#dc2626', secondary: '#fef2f2', accent: '#f87171' },
                   'marketing-magenta': { primary: '#be185d', secondary: '#fce7f3', accent: '#ec4899' },
                   'pm-olive': { primary: '#365314', secondary: '#f7fee7', accent: '#84cc16' },
-                  'qa-bronze': { primary: '#92400e', secondary: '#fef3c7', accent: '#d97706' }
+                  'qa-bronze': { primary: '#92400e', secondary: '#fef3c7', accent: '#d97706' },
+                  'tech-dark': { primary: '#1f2937', secondary: '#f9fafb', accent: '#3b82f6' },
+                  'marketing-teal': { primary: '#0f766e', secondary: '#f0fdfa', accent: '#14b8a6' },
+                  'student-purple': { primary: '#7c3aed', secondary: '#f5f3ff', accent: '#a855f7' },
+                  'medical-navy': { primary: '#1e3a8a', secondary: '#eff6ff', accent: '#3b82f6' },
+                  'finance-navy': { primary: '#1e40af', secondary: '#dbeafe', accent: '#2563eb' },
+                  'creative-gradient': { primary: '#ec4899', secondary: '#fdf2f8', accent: '#f59e0b' },
+                  'engineering-green': { primary: '#166534', secondary: '#f0fdf4', accent: '#22c55e' },
+                  'legal-navy': { primary: '#1e3a8a', secondary: '#f8fafc', accent: '#475569' },
+                  'education-blue': { primary: '#2563eb', secondary: '#eff6ff', accent: '#1d4ed8' },
+                  'business-teal': { primary: '#0d9488', secondary: '#f0fdfa', accent: '#14b8a6' },
+                  'pharma-blue': { primary: '#1e40af', secondary: '#dbeafe', accent: '#3b82f6' },
+                  'architecture-grey': { primary: '#374151', secondary: '#f9fafb', accent: '#6b7280' },
+                  'security-red': { primary: '#dc2626', secondary: '#fef2f2', accent: '#ef4444' },
+                  'hospitality-warm': { primary: '#ea580c', secondary: '#fff7ed', accent: '#f97316' },
+                  'environmental-green': { primary: '#059669', secondary: '#ecfdf5', accent: '#10b981' }
                 };
                 const currentColors = colors[colorScheme] || colors['purple'];
                 
@@ -2380,6 +2825,244 @@ export default function Search() {
                             <p style={{ fontSize: '11px', lineHeight: '1.4', color: '#374151' }}>{exp.description}</p>
                           </div>
                         ))}
+                      </div>
+                    </div>
+                  );
+                }
+                
+                if (designType === 'contact-sidebar') {
+                  return (
+                    <div style={{ display: 'flex', height: '450px' }}>
+                      <div style={{ 
+                        width: '180px', 
+                        backgroundColor: currentColors.primary, 
+                        padding: '25px 20px', 
+                        color: 'white'
+                      }}>
+                        <h1 style={{ fontSize: '16px', marginBottom: '6px', fontWeight: 'bold' }}>
+                          {template.templateData.personalInfo.name}
+                        </h1>
+                        <div style={{ fontSize: '11px', marginBottom: '18px', opacity: 0.9 }}>
+                          <div style={{ marginBottom: '3px' }}>{template.templateData.personalInfo.email}</div>
+                          <div style={{ marginBottom: '3px' }}>{template.templateData.personalInfo.phone}</div>
+                          <div>{template.templateData.personalInfo.address}</div>
+                        </div>
+                        <h3 style={{ fontSize: '13px', marginBottom: '8px', fontWeight: 'bold' }}>CONTACT</h3>
+                        <h3 style={{ fontSize: '13px', marginTop: '15px', marginBottom: '8px', fontWeight: 'bold' }}>KEY SKILLS</h3>
+                        {template.templateData.skills.slice(0, 5).map((skill, i) => (
+                          <div key={i} style={{ fontSize: '10px', marginBottom: '4px', opacity: 0.9 }}>• {skill}</div>
+                        ))}
+                      </div>
+                      <div style={{ flex: 1, padding: '25px' }}>
+                        <h2 style={{ fontSize: '18px', color: currentColors.primary, marginBottom: '12px', fontWeight: 'bold' }}>
+                          PROFESSIONAL SUMMARY
+                        </h2>
+                        <p style={{ fontSize: '13px', lineHeight: '1.5', marginBottom: '18px', color: '#374151' }}>
+                          {template.templateData.summary}
+                        </p>
+                        <h2 style={{ fontSize: '18px', color: currentColors.primary, marginBottom: '12px', fontWeight: 'bold' }}>
+                          EXPERIENCE
+                        </h2>
+                        {template.templateData.experience.map((exp, i) => (
+                          <div key={i} style={{ marginBottom: '12px' }}>
+                            <h3 style={{ fontSize: '15px', fontWeight: 'bold', color: '#1f2937' }}>{exp.position}</h3>
+                            <div style={{ fontSize: '13px', color: currentColors.accent, fontWeight: '500' }}>{exp.company}</div>
+                            <div style={{ fontSize: '11px', color: '#6b7280', marginBottom: '4px' }}>{exp.duration}</div>
+                            <p style={{ fontSize: '12px', lineHeight: '1.4', color: '#374151' }}>{exp.description}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                }
+                
+                if (designType === 'two-column') {
+                  return (
+                    <div style={{ display: 'flex', gap: '30px', height: '450px' }}>
+                      <div style={{ flex: 1 }}>
+                        <h1 style={{ fontSize: '22px', marginBottom: '8px', fontWeight: 'bold', color: currentColors.primary }}>
+                          {template.templateData.personalInfo.name}
+                        </h1>
+                        <div style={{ fontSize: '12px', marginBottom: '20px', color: '#6b7280' }}>
+                          <div>{template.templateData.personalInfo.email} | {template.templateData.personalInfo.phone}</div>
+                          <div>{template.templateData.personalInfo.address}</div>
+                        </div>
+                        <h2 style={{ fontSize: '16px', color: currentColors.primary, marginBottom: '10px', fontWeight: 'bold' }}>
+                          PROFESSIONAL SUMMARY
+                        </h2>
+                        <p style={{ fontSize: '12px', lineHeight: '1.5', marginBottom: '18px', color: '#374151' }}>
+                          {template.templateData.summary}
+                        </p>
+                        <h2 style={{ fontSize: '16px', color: currentColors.primary, marginBottom: '10px', fontWeight: 'bold' }}>
+                          EXPERIENCE
+                        </h2>
+                        {template.templateData.experience.slice(0, 2).map((exp, i) => (
+                          <div key={i} style={{ marginBottom: '12px' }}>
+                            <h3 style={{ fontSize: '13px', fontWeight: 'bold', color: '#1f2937' }}>{exp.position}</h3>
+                            <div style={{ fontSize: '11px', color: currentColors.accent }}>{exp.company} | {exp.duration}</div>
+                            <p style={{ fontSize: '10px', lineHeight: '1.4', color: '#374151' }}>{exp.description.substring(0, 100)}...</p>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{ flex: 1 }}>
+                        <h2 style={{ fontSize: '16px', color: currentColors.accent, marginBottom: '10px', fontWeight: 'bold' }}>
+                          TECHNICAL SKILLS
+                        </h2>
+                        <div style={{ marginBottom: '18px' }}>
+                          {template.templateData.skills.map((skill, i) => (
+                            <div key={i} style={{ 
+                              backgroundColor: currentColors.secondary, 
+                              color: currentColors.primary,
+                              padding: '4px 8px',
+                              borderRadius: '12px',
+                              fontSize: '10px',
+                              fontWeight: '500',
+                              display: 'inline-block',
+                              margin: '2px 4px 2px 0'
+                            }}>
+                              {skill}
+                            </div>
+                          ))}
+                        </div>
+                        <h2 style={{ fontSize: '16px', color: currentColors.accent, marginBottom: '10px', fontWeight: 'bold' }}>
+                          ACHIEVEMENTS
+                        </h2>
+                        <div style={{ fontSize: '11px', color: '#374151', lineHeight: '1.4' }}>
+                          <div style={{ marginBottom: '6px' }}>• Led successful project implementations</div>
+                          <div style={{ marginBottom: '6px' }}>• Improved team productivity by 30%</div>
+                          <div style={{ marginBottom: '6px' }}>• Recognized for outstanding performance</div>
+                          <div>• Mentored junior team members</div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (designType === 'split-screen') {
+                  return (
+                    <div style={{ display: 'flex', height: '450px' }}>
+                      <div style={{ 
+                        width: '50%', 
+                        backgroundColor: currentColors.primary, 
+                        padding: '30px 25px', 
+                        color: 'white'
+                      }}>
+                        <h1 style={{ fontSize: '20px', marginBottom: '10px', fontWeight: 'bold' }}>
+                          {template.templateData.personalInfo.name}
+                        </h1>
+                        <div style={{ fontSize: '12px', marginBottom: '20px', opacity: 0.9 }}>
+                          <div>{template.templateData.personalInfo.email}</div>
+                          <div>{template.templateData.personalInfo.phone}</div>
+                          <div>{template.templateData.personalInfo.address}</div>
+                        </div>
+                        <h3 style={{ fontSize: '14px', marginBottom: '10px', fontWeight: 'bold' }}>ABOUT ME</h3>
+                        <p style={{ fontSize: '11px', lineHeight: '1.5', marginBottom: '18px', opacity: 0.9 }}>
+                          {template.templateData.summary.substring(0, 150)}...
+                        </p>
+                        <h3 style={{ fontSize: '14px', marginBottom: '10px', fontWeight: 'bold' }}>SKILLS</h3>
+                        {template.templateData.skills.slice(0, 6).map((skill, i) => (
+                          <div key={i} style={{ fontSize: '10px', marginBottom: '4px', opacity: 0.9 }}>• {skill}</div>
+                        ))}
+                      </div>
+                      <div style={{ 
+                        width: '50%', 
+                        padding: '30px 25px', 
+                        backgroundColor: currentColors.secondary 
+                      }}>
+                        <h2 style={{ fontSize: '18px', color: currentColors.primary, marginBottom: '15px', fontWeight: 'bold' }}>
+                          EXPERIENCE
+                        </h2>
+                        {template.templateData.experience.map((exp, i) => (
+                          <div key={i} style={{ marginBottom: '16px' }}>
+                            <h3 style={{ fontSize: '14px', fontWeight: 'bold', color: '#1f2937' }}>{exp.position}</h3>
+                            <div style={{ fontSize: '12px', color: currentColors.accent, fontWeight: '500' }}>{exp.company}</div>
+                            <div style={{ fontSize: '10px', color: '#6b7280', marginBottom: '5px' }}>{exp.duration}</div>
+                            <p style={{ fontSize: '11px', lineHeight: '1.4', color: '#374151' }}>{exp.description.substring(0, 120)}...</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                }
+
+                if (designType === 'photo-header') {
+                  return (
+                    <div style={{ height: '450px' }}>
+                      <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        padding: '25px', 
+                        backgroundColor: currentColors.secondary, 
+                        marginBottom: '20px',
+                        borderRadius: '8px'
+                      }}>
+                        <div style={{ 
+                          width: '80px', 
+                          height: '80px', 
+                          backgroundColor: currentColors.primary, 
+                          borderRadius: '50%', 
+                          marginRight: '20px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: 'white',
+                          fontWeight: 'bold',
+                          fontSize: '12px'
+                        }}>
+                          PHOTO
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <h1 style={{ fontSize: '22px', marginBottom: '6px', fontWeight: 'bold', color: currentColors.primary }}>
+                            {template.templateData.personalInfo.name}
+                          </h1>
+                          <div style={{ fontSize: '12px', color: '#6b7280' }}>
+                            {template.templateData.personalInfo.email} | {template.templateData.personalInfo.phone}
+                          </div>
+                          <div style={{ fontSize: '12px', color: '#6b7280' }}>
+                            {template.templateData.personalInfo.address}
+                          </div>
+                        </div>
+                      </div>
+                      <div style={{ padding: '0 25px' }}>
+                        <h2 style={{ fontSize: '16px', color: currentColors.accent, marginBottom: '10px', fontWeight: 'bold' }}>
+                          PROFESSIONAL SUMMARY
+                        </h2>
+                        <p style={{ fontSize: '13px', lineHeight: '1.5', marginBottom: '18px', color: '#374151' }}>
+                          {template.templateData.summary}
+                        </p>
+                        <div style={{ display: 'flex', gap: '25px' }}>
+                          <div style={{ flex: 2 }}>
+                            <h2 style={{ fontSize: '16px', color: currentColors.accent, marginBottom: '10px', fontWeight: 'bold' }}>
+                              EXPERIENCE
+                            </h2>
+                            {template.templateData.experience.slice(0, 2).map((exp, i) => (
+                              <div key={i} style={{ marginBottom: '12px' }}>
+                                <h3 style={{ fontSize: '13px', fontWeight: 'bold', color: '#1f2937' }}>{exp.position}</h3>
+                                <div style={{ fontSize: '11px', color: currentColors.accent }}>{exp.company} | {exp.duration}</div>
+                                <p style={{ fontSize: '11px', lineHeight: '1.4', color: '#374151' }}>{exp.description.substring(0, 100)}...</p>
+                              </div>
+                            ))}
+                          </div>
+                          <div style={{ flex: 1 }}>
+                            <h2 style={{ fontSize: '16px', color: currentColors.accent, marginBottom: '10px', fontWeight: 'bold' }}>
+                              SKILLS
+                            </h2>
+                            {template.templateData.skills.slice(0, 6).map((skill, i) => (
+                              <div key={i} style={{ 
+                                backgroundColor: currentColors.primary, 
+                                color: 'white',
+                                padding: '3px 8px',
+                                borderRadius: '12px',
+                                fontSize: '10px',
+                                fontWeight: '500',
+                                display: 'inline-block',
+                                margin: '2px 4px 2px 0'
+                              }}>
+                                {skill}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   );
@@ -2486,7 +3169,12 @@ export default function Search() {
           }}>
             <Link 
               to="/builder" 
-              state={{ templateData: template.templateData, templateTitle: template.title }}
+              state={{ 
+                templateData: template.templateData, 
+                templateTitle: template.title,
+                designType: template.designType,
+                colorScheme: template.colorScheme
+              }}
               style={{
                 background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)',
                 color: 'white',
@@ -2640,6 +3328,7 @@ export default function Search() {
                   border: '2px solid #e2e8f0',
                   borderRadius: '12px',
                   fontSize: '16px',
+                  color: '#1f2937',
                   backgroundColor: 'white',
                   boxSizing: 'border-box',
                   transition: 'border-color 0.3s ease, box-shadow 0.3s ease'

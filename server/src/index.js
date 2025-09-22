@@ -14,6 +14,7 @@ app.use(morgan('dev'));
 // routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/resumes', require('./routes/resumes'));
+app.use('/api/feedback', require('./routes/feedback'));
 
 // error handler...
 const PORT = process.env.PORT || 5000;

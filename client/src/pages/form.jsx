@@ -5,6 +5,8 @@ export default function Builder() {
   const location = useLocation();
   const templateData = location.state?.templateData;
   const templateTitle = location.state?.templateTitle;
+  const designType = location.state?.designType || 'standard';
+  const colorScheme = location.state?.colorScheme || 'purple';
 
   // Personal Information
   const [fullName, setFullName] = useState(templateData?.personalInfo?.name || "");
@@ -24,6 +26,11 @@ export default function Builder() {
   const [fontColor, setFontColor] = useState('#000000');
   const [headingColor, setHeadingColor] = useState('#7c3aed');
   const [companyColor, setCompanyColor] = useState('#7c3aed');
+
+  // Template Color Customization
+  const [templatePrimaryColor, setTemplatePrimaryColor] = useState('#7c3aed');
+  const [templateSecondaryColor, setTemplateSecondaryColor] = useState('#f0f4ff');
+  const [templateAccentColor, setTemplateAccentColor] = useState('#a855f7');
 
   // Professional Summary
   const [careerObjective, setCareerObjective] = useState(templateData?.summary || "");
@@ -260,6 +267,329 @@ export default function Builder() {
     const selectedHeadingColor = fontSettings.headingColor || '#7c3aed';
     const selectedCompanyColor = fontSettings.companyColor || '#7c3aed';
 
+    // Get color scheme colors - use custom colors if set, otherwise fall back to scheme
+    const getColorSchemeColors = () => {
+      // If user has customized colors, use those
+      if (templatePrimaryColor !== '#7c3aed' || templateSecondaryColor !== '#f0f4ff' || templateAccentColor !== '#a855f7') {
+        return {
+          primary: templatePrimaryColor,
+          secondary: templateSecondaryColor,
+          accent: templateAccentColor
+        };
+      }
+
+      // Otherwise use predefined color schemes
+      const colors = {
+        'blue': { primary: '#2563eb', secondary: '#dbeafe', accent: '#1d4ed8' },
+        'minimal': { primary: '#374151', secondary: '#f9fafb', accent: '#6b7280' },
+        'purple': { primary: '#7c3aed', secondary: '#f0f4ff', accent: '#a855f7' },
+        'green': { primary: '#059669', secondary: '#d1fae5', accent: '#047857' },
+        'teal': { primary: '#0d9488', secondary: '#ccfbf1', accent: '#0f766e' },
+        'executive-navy': { primary: '#1e3a8a', secondary: '#f0f4ff', accent: '#3730a3' },
+        'academic-burgundy': { primary: '#7f1d1d', secondary: '#fee2e2', accent: '#991b1b' },
+        'legal-charcoal': { primary: '#374151', secondary: '#f9fafb', accent: '#4b5563' },
+        'photo-slate': { primary: '#475569', secondary: '#f8fafc', accent: '#64748b' },
+        'finance-gold': { primary: '#b45309', secondary: '#fef3c7', accent: '#d97706' },
+        'split-teal': { primary: '#0f766e', secondary: '#ccfbf1', accent: '#14b8a6' },
+        'grid-mint': { primary: '#065f46', secondary: '#d1fae5', accent: '#10b981' },
+        'medical-blue': { primary: '#1e40af', secondary: '#dbeafe', accent: '#3b82f6' },
+        'startup-orange': { primary: '#ea580c', secondary: '#fed7aa', accent: '#f97316' },
+        'consulting-steel': { primary: '#475569', secondary: '#f1f5f9', accent: '#64748b' },
+        'lead-purple': { primary: '#7c3aed', secondary: '#f3e8ff', accent: '#8b5cf6' },
+        'sales-red': { primary: '#dc2626', secondary: '#fee2e2', accent: '#ef4444' },
+        'product-indigo': { primary: '#4338ca', secondary: '#eef2ff', accent: '#6366f1' },
+        'creative-rainbow': { primary: '#ec4899', secondary: '#fce7f3', accent: '#f59e0b' },
+        'data-cyan': { primary: '#0891b2', secondary: '#cffafe', accent: '#06b6d4' },
+        'operations-forest': { primary: '#166534', secondary: '#dcfce7', accent: '#22c55e' },
+        'hr-coral': { primary: '#dc2626', secondary: '#fef2f2', accent: '#f87171' },
+        'marketing-magenta': { primary: '#be185d', secondary: '#fce7f3', accent: '#ec4899' },
+        'pm-olive': { primary: '#365314', secondary: '#f7fee7', accent: '#84cc16' },
+        'qa-bronze': { primary: '#92400e', secondary: '#fef3c7', accent: '#d97706' },
+        'tech-dark': { primary: '#1f2937', secondary: '#f9fafb', accent: '#3b82f6' },
+        'marketing-teal': { primary: '#0f766e', secondary: '#f0fdfa', accent: '#14b8a6' },
+        'student-purple': { primary: '#7c3aed', secondary: '#f5f3ff', accent: '#a855f7' },
+        'medical-navy': { primary: '#1e3a8a', secondary: '#eff6ff', accent: '#3b82f6' },
+        'finance-navy': { primary: '#1e40af', secondary: '#dbeafe', accent: '#2563eb' },
+        'creative-gradient': { primary: '#ec4899', secondary: '#fdf2f8', accent: '#f59e0b' },
+        'engineering-green': { primary: '#166534', secondary: '#f0fdf4', accent: '#22c55e' },
+        'legal-navy': { primary: '#1e3a8a', secondary: '#f8fafc', accent: '#475569' },
+        'education-blue': { primary: '#2563eb', secondary: '#eff6ff', accent: '#1d4ed8' },
+        'business-teal': { primary: '#0d9488', secondary: '#f0fdfa', accent: '#14b8a6' },
+        'pharma-blue': { primary: '#1e40af', secondary: '#dbeafe', accent: '#3b82f6' },
+        'architecture-grey': { primary: '#374151', secondary: '#f9fafb', accent: '#6b7280' },
+        'security-red': { primary: '#dc2626', secondary: '#fef2f2', accent: '#ef4444' },
+        'hospitality-warm': { primary: '#ea580c', secondary: '#fff7ed', accent: '#f97316' },
+        'environmental-green': { primary: '#059669', secondary: '#ecfdf5', accent: '#10b981' }
+      };
+      return colors[colorScheme] || colors['purple'];
+    };
+
+    const schemeColors = getColorSchemeColors();
+
+    // Generate layout HTML based on design type
+    const generateLayoutHTML = (data) => {
+      // Common sections for reuse
+      const summarySection = data.summary ? `
+        <div class="section">
+          <h2 class="section-title">Professional Summary</h2>
+          <p class="description">${data.summary}</p>
+        </div>
+      ` : '';
+
+      const skillsSection = data.skills && data.skills.length ? `
+        <div class="section">
+          <h2 class="section-title">Technical Skills</h2>
+          <div class="skills">
+            ${data.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+          </div>
+        </div>
+      ` : '';
+
+      const experienceSection = data.experience && data.experience.length ? `
+        <div class="section">
+          <h2 class="section-title">Work Experience</h2>
+          ${data.experience.map(exp => `
+            <div class="experience-item">
+              <div class="experience-header">
+                <div>
+                  <div class="job-title">${exp.position || ''}</div>
+                  <div class="company">${exp.company || ''}</div>
+                </div>
+                <div class="duration">${exp.duration || ''}</div>
+              </div>
+              <div class="description">${exp.description || ''}</div>
+            </div>
+          `).join('')}
+        </div>
+      ` : '';
+
+      const projectsSection = data.projects && data.projects.length ? `
+        <div class="section">
+          <h2 class="section-title">Projects</h2>
+          ${data.projects.map(proj => `
+            <div class="project-item">
+              <div class="job-title">${proj.title || ''}</div>
+              <div class="description">${proj.description || ''}</div>
+            </div>
+          `).join('')}
+        </div>
+      ` : '';
+
+      const educationSection = data.education && data.education.length ? `
+        <div class="section">
+          <h2 class="section-title">Education</h2>
+          ${data.education.map(edu => `
+            <div class="education-item">
+              <div class="job-title">${edu.degree || ''}</div>
+              <div class="company">${edu.institution || ''}</div>
+              <div class="duration">${edu.year || ''} ${edu.gpa ? `• GPA: ${edu.gpa}` : ''}</div>
+            </div>
+          `).join('')}
+        </div>
+      ` : '';
+
+      const achievementsSection = data.achievements && data.achievements.length ? `
+        <div class="section achievements">
+          <h2 class="section-title">Achievements & Certifications</h2>
+          <ul>
+            ${data.achievements.map(achievement => `<li>${achievement || ''}</li>`).join('')}
+          </ul>
+        </div>
+      ` : '';
+
+      const languagesSection = data.languages && data.languages.length ? `
+        <div class="section">
+          <h2 class="section-title">Languages</h2>
+          <div class="skills">
+            ${data.languages.map(lang => `<span class="skill-tag">${lang.language}${lang.fluency ? ` - ${lang.fluency}` : ''}</span>`).join('')}
+          </div>
+        </div>
+      ` : '';
+
+      // Generate different layouts based on design type
+      if (designType === 'sidebar' || designType === 'contact-sidebar') {
+        return `
+          <div style="display: flex; min-height: 100vh;">
+            <div class="sidebar" style="
+              width: 300px; 
+              background-color: ${schemeColors.primary}; 
+              color: white; 
+              padding: 40px 30px;
+              flex-shrink: 0;
+            ">
+              ${data.personalInfo.profilePhoto ? `<img src="${data.personalInfo.profilePhoto}" alt="Profile Photo" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; border: 3px solid white; object-fit: cover;">` : ''}
+              <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 15px;">${data.personalInfo.name || 'Your Name'}</h1>
+              
+              <div style="margin-bottom: 30px;">
+                <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 10px; color: rgba(255,255,255,0.9);">CONTACT</h3>
+                ${data.personalInfo.email ? `<div style="margin-bottom: 8px; font-size: 13px;"><a href="mailto:${data.personalInfo.email}" style="color: white; text-decoration: none;">${data.personalInfo.email}</a></div>` : ''}
+                ${data.personalInfo.phone ? `<div style="margin-bottom: 8px; font-size: 13px;">${data.personalInfo.phone}</div>` : ''}
+                ${data.personalInfo.address ? `<div style="margin-bottom: 8px; font-size: 13px;">${data.personalInfo.address}</div>` : ''}
+                ${data.personalInfo.linkedin ? `<div style="margin-bottom: 8px; font-size: 13px;"><a href="${data.personalInfo.linkedin.startsWith('http') ? data.personalInfo.linkedin : 'https://linkedin.com/in/' + data.personalInfo.linkedin}" style="color: white; text-decoration: none;" target="_blank">${data.personalInfo.linkedin}</a></div>` : ''}
+                ${data.personalInfo.github ? `<div style="margin-bottom: 8px; font-size: 13px;"><a href="${data.personalInfo.github.startsWith('http') ? data.personalInfo.github : 'https://github.com/' + data.personalInfo.github}" style="color: white; text-decoration: none;" target="_blank">${data.personalInfo.github}</a></div>` : ''}
+              </div>
+
+              ${data.skills && data.skills.length ? `
+                <div style="margin-bottom: 30px;">
+                  <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 10px; color: rgba(255,255,255,0.9);">SKILLS</h3>
+                  ${data.skills.map(skill => `<div style="margin-bottom: 6px; font-size: 13px; opacity: 0.9;">• ${skill}</div>`).join('')}
+                </div>
+              ` : ''}
+
+              ${data.languages && data.languages.length ? `
+                <div>
+                  <h3 style="font-size: 16px; font-weight: bold; margin-bottom: 10px; color: rgba(255,255,255,0.9);">LANGUAGES</h3>
+                  ${data.languages.map(lang => `<div style="margin-bottom: 6px; font-size: 13px; opacity: 0.9;">${lang.language}${lang.fluency ? ` - ${lang.fluency}` : ''}</div>`).join('')}
+                </div>
+              ` : ''}
+            </div>
+            
+            <div class="main-content" style="flex: 1; padding: 40px;">
+              ${summarySection}
+              ${experienceSection}
+              ${projectsSection}
+              ${educationSection}
+              ${achievementsSection}
+            </div>
+          </div>
+        `;
+      }
+
+      if (designType === 'split-screen') {
+        return `
+          <div style="display: flex; min-height: 100vh;">
+            <div class="left-panel" style="
+              width: 50%; 
+              background-color: ${schemeColors.primary}; 
+              color: white; 
+              padding: 40px 30px;
+            ">
+              <h1 style="font-size: 28px; font-weight: bold; margin-bottom: 20px;">${data.personalInfo.name || 'Your Name'}</h1>
+              <div style="margin-bottom: 25px; opacity: 0.9;">
+                ${data.personalInfo.email ? `<div style="margin-bottom: 8px;">${data.personalInfo.email}</div>` : ''}
+                ${data.personalInfo.phone ? `<div style="margin-bottom: 8px;">${data.personalInfo.phone}</div>` : ''}
+                ${data.personalInfo.address ? `<div style="margin-bottom: 8px;">${data.personalInfo.address}</div>` : ''}
+              </div>
+              
+              ${data.summary ? `
+                <div style="margin-bottom: 25px;">
+                  <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">ABOUT ME</h3>
+                  <p style="line-height: 1.6; opacity: 0.9;">${data.summary}</p>
+                </div>
+              ` : ''}
+
+              ${data.skills && data.skills.length ? `
+                <div>
+                  <h3 style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">SKILLS</h3>
+                  ${data.skills.map(skill => `<div style="margin-bottom: 8px; opacity: 0.9;">• ${skill}</div>`).join('')}
+                </div>
+              ` : ''}
+            </div>
+            
+            <div class="right-panel" style="
+              width: 50%; 
+              background-color: ${schemeColors.secondary}; 
+              padding: 40px 30px;
+            ">
+              ${experienceSection}
+              ${projectsSection}
+              ${educationSection}
+              ${achievementsSection}
+              ${languagesSection}
+            </div>
+          </div>
+        `;
+      }
+
+      if (designType === 'photo-header') {
+        return `
+          <div class="photo-header-layout">
+            <div class="photo-header" style="
+              display: flex; 
+              align-items: center; 
+              padding: 30px; 
+              background-color: ${schemeColors.secondary}; 
+              margin-bottom: 30px;
+              border-radius: 12px;
+            ">
+              ${data.personalInfo.profilePhoto ? `
+                <img src="${data.personalInfo.profilePhoto}" alt="Profile Photo" style="
+                  width: 120px; 
+                  height: 120px; 
+                  border-radius: 50%; 
+                  margin-right: 25px; 
+                  border: 4px solid ${schemeColors.primary};
+                  object-fit: cover;
+                ">
+              ` : `
+                <div style="
+                  width: 120px; 
+                  height: 120px; 
+                  border-radius: 50%; 
+                  margin-right: 25px; 
+                  background-color: ${schemeColors.primary};
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-weight: bold;
+                  font-size: 16px;
+                ">PHOTO</div>
+              `}
+              <div style="flex: 1;">
+                <h1 style="font-size: 32px; font-weight: bold; color: ${schemeColors.primary}; margin-bottom: 10px;">${data.personalInfo.name || 'Your Name'}</h1>
+                <div style="color: #6b7280; font-size: 16px;">
+                  ${data.personalInfo.email ? `${data.personalInfo.email} | ` : ''}
+                  ${data.personalInfo.phone ? `${data.personalInfo.phone}` : ''}
+                </div>
+                <div style="color: #6b7280; font-size: 16px;">
+                  ${data.personalInfo.address ? `${data.personalInfo.address}` : ''}
+                </div>
+              </div>
+            </div>
+            
+            <div style="display: flex; gap: 30px;">
+              <div style="flex: 2;">
+                ${summarySection}
+                ${experienceSection}
+                ${projectsSection}
+                ${educationSection}
+                ${achievementsSection}
+              </div>
+              <div style="flex: 1;">
+                ${skillsSection}
+                ${languagesSection}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Default layout for other design types
+      return `
+        <div class="header">
+          ${data.personalInfo.profilePhoto ? `<img src="${data.personalInfo.profilePhoto}" alt="Profile Photo" class="profile-photo">` : ''}
+          <div class="header-content">
+            <h1 class="name">${data.personalInfo.name || 'Your Name'}</h1>
+            <div class="contact">
+              ${data.personalInfo.email ? `<span><a href="mailto:${data.personalInfo.email}">${data.personalInfo.email}</a></span>` : ''}
+              ${data.personalInfo.phone ? `<span>${data.personalInfo.phone}</span>` : ''}
+              ${data.personalInfo.address ? `<span>${data.personalInfo.address}</span>` : ''}
+              ${data.personalInfo.linkedin ? `<span><a href="${data.personalInfo.linkedin.startsWith('http') ? data.personalInfo.linkedin : 'https://linkedin.com/in/' + data.personalInfo.linkedin}" target="_blank">${data.personalInfo.linkedin}</a></span>` : ''}
+              ${data.personalInfo.github ? `<span><a href="${data.personalInfo.github.startsWith('http') ? data.personalInfo.github : 'https://github.com/' + data.personalInfo.github}" target="_blank">${data.personalInfo.github}</a></span>` : ''}
+            </div>
+          </div>
+        </div>
+        ${summarySection}
+        ${skillsSection}
+        ${experienceSection}
+        ${projectsSection}
+        ${educationSection}
+        ${achievementsSection}
+        ${languagesSection}
+      `;
+    };
+
     // Get photo styles based on user preferences
     const getPhotoStyles = () => {
       const position = data.personalInfo.photoPosition || 'center';
@@ -481,96 +811,7 @@ export default function Builder() {
       </style>
     </head>
     <body>
-      <div class="header">
-        ${data.personalInfo.profilePhoto ? `<img src="${data.personalInfo.profilePhoto}" alt="Profile Photo" class="profile-photo">` : ''}
-        <div class="header-content">
-          <h1 class="name">${data.personalInfo.name || 'Your Name'}</h1>
-          <div class="contact">
-            ${data.personalInfo.email ? `<span> <a href="mailto:${data.personalInfo.email}">${data.personalInfo.email}</a></span>` : ''}
-            ${data.personalInfo.phone ? `<span> ${data.personalInfo.phone}</span>` : ''}
-            ${data.personalInfo.address ? `<span> ${data.personalInfo.address}</span>` : ''}
-            ${data.personalInfo.linkedin ? `<span> <a href="${data.personalInfo.linkedin.startsWith('http') ? data.personalInfo.linkedin : 'https://linkedin.com/in/' + data.personalInfo.linkedin}" target="_blank">${data.personalInfo.linkedin}</a></span>` : ''}
-            ${data.personalInfo.github ? `<span> <a href="${data.personalInfo.github.startsWith('http') ? data.personalInfo.github : 'https://github.com/' + data.personalInfo.github}" target="_blank">${data.personalInfo.github}</a></span>` : ''}
-          </div>
-        </div>
-      </div>
-
-      ${data.summary ? `
-        <div class="section">
-          <h2 class="section-title">Professional Summary</h2>
-          <p class="description">${data.summary}</p>
-        </div>
-      ` : ''}
-
-      ${data.skills && data.skills.length ? `
-        <div class="section">
-          <h2 class="section-title">Technical Skills</h2>
-          <div class="skills">
-            ${data.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
-          </div>
-        </div>
-      ` : ''}
-
-      ${data.experience && data.experience.length ? `
-        <div class="section">
-          <h2 class="section-title">Work Experience</h2>
-          ${data.experience.map(exp => `
-            <div class="experience-item">
-              <div class="experience-header">
-                <div>
-                  <div class="job-title">${exp.position || ''}</div>
-                  <div class="company">${exp.company || ''}</div>
-                </div>
-                <div class="duration">${exp.duration || ''}</div>
-              </div>
-              <div class="description">${exp.description || ''}</div>
-            </div>
-          `).join('')}
-        </div>
-      ` : ''}
-
-      ${data.projects && data.projects.length ? `
-        <div class="section">
-          <h2 class="section-title">Projects</h2>
-          ${data.projects.map(proj => `
-            <div class="project-item">
-              <div class="job-title">${proj.title || ''}</div>
-              <div class="description">${proj.description || ''}</div>
-            </div>
-          `).join('')}
-        </div>
-      ` : ''}
-
-      ${data.education && data.education.length ? `
-        <div class="section">
-          <h2 class="section-title">Education</h2>
-          ${data.education.map(edu => `
-            <div class="education-item">
-              <div class="job-title">${edu.degree || ''}</div>
-              <div class="company">${edu.institution || ''}</div>
-              <div class="duration">${edu.year || ''} ${edu.gpa ? `• GPA: ${edu.gpa}` : ''}</div>
-            </div>
-          `).join('')}
-        </div>
-      ` : ''}
-
-      ${data.achievements && data.achievements.length ? `
-        <div class="section achievements">
-          <h2 class="section-title">Achievements & Certifications</h2>
-          <ul>
-            ${data.achievements.map(achievement => `<li>${achievement || ''}</li>`).join('')}
-          </ul>
-        </div>
-      ` : ''}
-
-      ${data.languages && data.languages.length ? `
-        <div class="section">
-          <h2 class="section-title">Languages</h2>
-          <div class="skills">
-            ${data.languages.map(lang => `<span class="skill-tag">${lang.language}${lang.fluency ? ` - ${lang.fluency}` : ''}</span>`).join('')}
-          </div>
-        </div>
-      ` : ''}
+      ${generateLayoutHTML(data)}
     </body>
     </html>
     `;
@@ -1078,6 +1319,223 @@ export default function Builder() {
                     <option value="#7c2d12">Brown</option>
                   </select>
                 </div>
+              </div>
+            </div>
+
+            {/* Template Color Customization Section */}
+            <div style={{
+              marginBottom: '24px',
+              padding: '20px',
+              backgroundColor: '#f0f9ff',
+              borderRadius: '12px',
+              border: '2px dashed #0ea5e9'
+            }}>
+              <h4 style={{
+                margin: '0 0 16px 0',
+                color: '#0369a1',
+                fontSize: '16px',
+                fontWeight: '600'
+              }}>
+                🎨 Template Color Customization
+              </h4>
+              <p style={{
+                margin: '0 0 16px 0',
+                fontSize: '13px',
+                color: '#64748b',
+                lineHeight: '1.5'
+              }}>
+                Customize the colors of your template layout (sidebar, headers, accents). These will override the default template colors.
+              </p>
+              
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr 1fr',
+                gap: '16px'
+              }}>
+                {/* Primary Color (Sidebar/Header) */}
+                <div>
+                  <label style={{
+                    display: 'block',
+                    marginBottom: '8px',
+                    fontSize: '12px',
+                    fontWeight: '500',
+                    color: '#0369a1'
+                  }}>
+                    Primary Color (Sidebar/Header)
+                  </label>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <input
+                      type="color"
+                      value={templatePrimaryColor}
+                      onChange={(e) => setTemplatePrimaryColor(e.target.value)}
+                      style={{
+                        width: '40px',
+                        height: '38px',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer'
+                      }}
+                    />
+                    <select
+                      value={templatePrimaryColor}
+                      onChange={(e) => setTemplatePrimaryColor(e.target.value)}
+                      style={{
+                        flex: 1,
+                        padding: '8px 12px',
+                        border: '1px solid #0ea5e9',
+                        borderRadius: '6px',
+                        backgroundColor: 'white',
+                        fontSize: '12px',
+                        color: '#374151'
+                      }}
+                    >
+                      <option value="#7c3aed">Purple</option>
+                      <option value="#2563eb">Blue</option>
+                      <option value="#059669">Green</option>
+                      <option value="#dc2626">Red</option>
+                      <option value="#d97706">Orange</option>
+                      <option value="#1f2937">Dark Gray</option>
+                      <option value="#0f766e">Teal</option>
+                      <option value="#1e40af">Navy</option>
+                      <option value="#ec4899">Pink</option>
+                      <option value="#7f1d1d">Burgundy</option>
+                    </select>
+                  </div>
+                </div>
+                
+                {/* Secondary Color (Background) */}
+                <div>
+                  <label style={{
+                    display: 'block',
+                    marginBottom: '8px',
+                    fontSize: '12px',
+                    fontWeight: '500',
+                    color: '#0369a1'
+                  }}>
+                    Secondary Color (Background)
+                  </label>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <input
+                      type="color"
+                      value={templateSecondaryColor}
+                      onChange={(e) => setTemplateSecondaryColor(e.target.value)}
+                      style={{
+                        width: '40px',
+                        height: '38px',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer'
+                      }}
+                    />
+                    <select
+                      value={templateSecondaryColor}
+                      onChange={(e) => setTemplateSecondaryColor(e.target.value)}
+                      style={{
+                        flex: 1,
+                        padding: '8px 12px',
+                        border: '1px solid #0ea5e9',
+                        borderRadius: '6px',
+                        backgroundColor: 'white',
+                        fontSize: '12px',
+                        color: '#374151'
+                      }}
+                    >
+                      <option value="#f0f4ff">Light Purple</option>
+                      <option value="#dbeafe">Light Blue</option>
+                      <option value="#d1fae5">Light Green</option>
+                      <option value="#fee2e2">Light Red</option>
+                      <option value="#fed7aa">Light Orange</option>
+                      <option value="#f9fafb">Light Gray</option>
+                      <option value="#ccfbf1">Light Teal</option>
+                      <option value="#eff6ff">Light Navy</option>
+                      <option value="#fce7f3">Light Pink</option>
+                      <option value="#ffffff">White</option>
+                    </select>
+                  </div>
+                </div>
+                
+                {/* Accent Color */}
+                <div>
+                  <label style={{
+                    display: 'block',
+                    marginBottom: '8px',
+                    fontSize: '12px',
+                    fontWeight: '500',
+                    color: '#0369a1'
+                  }}>
+                    Accent Color (Highlights)
+                  </label>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <input
+                      type="color"
+                      value={templateAccentColor}
+                      onChange={(e) => setTemplateAccentColor(e.target.value)}
+                      style={{
+                        width: '40px',
+                        height: '38px',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer'
+                      }}
+                    />
+                    <select
+                      value={templateAccentColor}
+                      onChange={(e) => setTemplateAccentColor(e.target.value)}
+                      style={{
+                        flex: 1,
+                        padding: '8px 12px',
+                        border: '1px solid #0ea5e9',
+                        borderRadius: '6px',
+                        backgroundColor: 'white',
+                        fontSize: '12px',
+                        color: '#374151'
+                      }}
+                    >
+                      <option value="#a855f7">Purple Accent</option>
+                      <option value="#1d4ed8">Blue Accent</option>
+                      <option value="#047857">Green Accent</option>
+                      <option value="#ef4444">Red Accent</option>
+                      <option value="#f59e0b">Orange Accent</option>
+                      <option value="#6b7280">Gray Accent</option>
+                      <option value="#14b8a6">Teal Accent</option>
+                      <option value="#3730a3">Navy Accent</option>
+                      <option value="#db2777">Pink Accent</option>
+                      <option value="#dc2626">Burgundy Accent</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Reset Button */}
+              <div style={{ marginTop: '16px', textAlign: 'center' }}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTemplatePrimaryColor('#7c3aed');
+                    setTemplateSecondaryColor('#f0f4ff');
+                    setTemplateAccentColor('#a855f7');
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#f1f5f9',
+                    border: '1px solid #cbd5e1',
+                    borderRadius: '6px',
+                    fontSize: '12px',
+                    color: '#475569',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = '#e2e8f0';
+                    e.target.style.borderColor = '#94a3b8';
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.backgroundColor = '#f1f5f9';
+                    e.target.style.borderColor = '#cbd5e1';
+                  }}
+                >
+                  🔄 Reset to Default Colors
+                </button>
               </div>
             </div>
             
