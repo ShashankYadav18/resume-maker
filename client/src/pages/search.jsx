@@ -3444,69 +3444,146 @@ export default function Search() {
 
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-                gap: '32px'
+                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+                gap: '24px',
+                padding: '8px'
               }}>
                 {searchResults.map((result) => (
                   <div
                     key={result.id}
                     style={{
                       backgroundColor: 'white',
-                      borderRadius: '16px',
-                      padding: '32px',
-                      boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
-                      border: '1px solid #f1f5f9',
-                      transition: 'all 0.3s ease',
-                      cursor: 'pointer'
+                      borderRadius: '20px',
+                      padding: '24px',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+                      border: '1px solid #e5e7eb',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      cursor: 'pointer',
+                      position: 'relative',
+                      overflow: 'hidden'
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-8px)';
-                      e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.12)';
+                      e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)';
+                      e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.15)';
+                      e.currentTarget.style.borderColor = '#7c3aed';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0px)';
-                      e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.08)';
+                      e.currentTarget.style.transform = 'translateY(0px) scale(1)';
+                      e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)';
+                      e.currentTarget.style.borderColor = '#e5e7eb';
                     }}
                   >
-                    {/* Resume Preview */}
+                    {/* Enhanced Resume Preview */}
                     <div style={{
                       width: '100%',
-                      height: '200px',
-                      backgroundColor: '#f8fafc',
-                      borderRadius: '12px',
+                      height: '240px',
+                      backgroundColor: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
+                      borderRadius: '16px',
                       marginBottom: '20px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       position: 'relative',
-                      overflow: 'hidden'
+                      overflow: 'hidden',
+                      border: '1px solid #e2e8f0'
                     }}>
+                      {/* Template preview background pattern */}
                       <div style={{
-                        width: '80%',
-                        height: '80%',
+                        position: 'absolute',
+                        top: '-50%',
+                        left: '-50%',
+                        width: '200%',
+                        height: '200%',
+                        background: 'radial-gradient(circle, rgba(124, 58, 237, 0.03) 1px, transparent 1px)',
+                        backgroundSize: '20px 20px',
+                        animation: 'float 6s ease-in-out infinite'
+                      }}></div>
+                      
+                      {/* Main preview container */}
+                      <div style={{
+                        width: '85%',
+                        height: '85%',
                         backgroundColor: 'white',
-                        borderRadius: '8px',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                        borderRadius: '12px',
+                        boxShadow: '0 8px 25px rgba(0,0,0,0.12)',
                         padding: '16px',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        position: 'relative',
+                        border: '1px solid rgba(124, 58, 237, 0.1)'
                       }}>
                         {generatePreviewLayout(result)}
+                        
+                        {/* Category badge overlay */}
+                        <div style={{
+                          position: 'absolute',
+                          top: '8px',
+                          right: '8px',
+                          backgroundColor: result.category === 'Tech' ? '#3b82f6' : 
+                                         result.category === 'Medical' ? '#10b981' : 
+                                         result.category === 'Non-Tech' ? '#f59e0b' : '#8b5cf6',
+                          color: 'white',
+                          padding: '4px 8px',
+                          borderRadius: '6px',
+                          fontSize: '10px',
+                          fontWeight: '600',
+                          opacity: 0.9
+                        }}>
+                          {result.category}
+                        </div>
                       </div>
+                      
+                      {/* Decorative elements */}
+                      <div style={{
+                        position: 'absolute',
+                        bottom: '10px',
+                        right: '10px',
+                        width: '40px',
+                        height: '40px',
+                        background: 'linear-gradient(45deg, rgba(124, 58, 237, 0.1), rgba(168, 85, 247, 0.1))',
+                        borderRadius: '50%',
+                        opacity: 0.6
+                      }}></div>
                     </div>
 
-                    <h3 style={{
-                      color: '#1f2937',
-                      fontSize: '20px',
-                      fontWeight: '700',
-                      marginBottom: '8px',
-                      lineHeight: '1.3'
-                    }}>{result.title}</h3>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      justifyContent: 'space-between',
+                      marginBottom: '8px'
+                    }}>
+                      <h3 style={{
+                        color: '#1f2937',
+                        fontSize: '18px',
+                        fontWeight: '700',
+                        lineHeight: '1.3',
+                        margin: '0',
+                        flex: '1'
+                      }}>{result.title}</h3>
+                      
+                      {/* Rating stars */}
+                      <div style={{
+                        display: 'flex',
+                        gap: '2px',
+                        marginLeft: '8px'
+                      }}>
+                        {[1,2,3,4,5].map(star => (
+                          <span key={star} style={{
+                            color: star <= (Math.floor(Math.random() * 2) + 4) ? '#fbbf24' : '#e5e7eb',
+                            fontSize: '14px'
+                          }}>★</span>
+                        ))}
+                      </div>
+                    </div>
                     
                     <p style={{
                       color: '#6b7280',
                       fontSize: '14px',
                       marginBottom: '16px',
-                      lineHeight: '1.5'
+                      lineHeight: '1.5',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden'
                     }}>{result.description}</p>
 
                     <div style={{
@@ -3534,7 +3611,7 @@ export default function Search() {
 
                     <div style={{
                       display: 'flex',
-                      gap: '8px',
+                      gap: '12px',
                       width: '100%'
                     }}>
                       <button
@@ -3543,23 +3620,33 @@ export default function Search() {
                           flex: '1',
                           backgroundColor: 'white',
                           color: '#7c3aed',
-                          padding: '12px 20px',
-                          borderRadius: '10px',
+                          padding: '14px 18px',
+                          borderRadius: '12px',
                           fontWeight: '600',
-                          border: '2px solid #7c3aed',
+                          border: '2px solid #e2e8f0',
                           cursor: 'pointer',
                           fontSize: '14px',
-                          transition: 'all 0.2s ease'
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px'
                         }}
                         onMouseEnter={(e) => {
-                          e.target.style.backgroundColor = '#7c3aed';
-                          e.target.style.color = 'white';
+                          e.target.style.backgroundColor = '#f8fafc';
+                          e.target.style.borderColor = '#7c3aed';
+                          e.target.style.transform = 'translateY(-2px)';
                         }}
                         onMouseLeave={(e) => {
                           e.target.style.backgroundColor = 'white';
-                          e.target.style.color = '#7c3aed';
+                          e.target.style.borderColor = '#e2e8f0';
+                          e.target.style.transform = 'translateY(0px)';
                         }}
                       >
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
                         Preview
                       </button>
                       <Link 
@@ -3567,24 +3654,29 @@ export default function Search() {
                         state={{ templateData: result.templateData, templateTitle: result.title }}
                         style={{
                           flex: '2',
-                          display: 'block',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '8px',
                           background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)',
                           color: 'white',
-                          padding: '12px 20px',
-                          borderRadius: '10px',
+                          padding: '14px 20px',
+                          borderRadius: '12px',
                           fontWeight: '600',
                           border: 'none',
                           cursor: 'pointer',
                           fontSize: '14px',
-                          transition: 'opacity 0.2s ease',
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                           textDecoration: 'none',
+                          position: 'relative',
+                          overflow: 'hidden',
                           textAlign: 'center',
                           boxSizing: 'border-box'
                         }}
                         onMouseEnter={(e) => e.target.style.opacity = '0.9'}
                         onMouseLeave={(e) => e.target.style.opacity = '1'}
                       >
-                        Use Template
+                        ✨ Use Template
                       </Link>
                     </div>
                   </div>
@@ -3636,6 +3728,21 @@ export default function Search() {
         @keyframes spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-10px) rotate(1deg); }
+        }
+        
+        @keyframes pulse {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </div>

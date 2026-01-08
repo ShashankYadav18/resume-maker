@@ -1399,6 +1399,8 @@ export default function Builder() {
                       <option value="#1e40af">Navy</option>
                       <option value="#ec4899">Pink</option>
                       <option value="#7f1d1d">Burgundy</option>
+                      <option value="#000000">Black</option>
+                      <option value="#ffffff">White</option>
                     </select>
                   </div>
                 </div>
@@ -1450,6 +1452,7 @@ export default function Builder() {
                       <option value="#eff6ff">Light Navy</option>
                       <option value="#fce7f3">Light Pink</option>
                       <option value="#ffffff">White</option>
+                      <option value="#000000">Black</option>
                     </select>
                   </div>
                 </div>
@@ -1501,6 +1504,8 @@ export default function Builder() {
                       <option value="#3730a3">Navy Accent</option>
                       <option value="#db2777">Pink Accent</option>
                       <option value="#dc2626">Burgundy Accent</option>
+                      <option value="#000000">Black</option>
+                      <option value="#ffffff">White</option>
                     </select>
                   </div>
                 </div>

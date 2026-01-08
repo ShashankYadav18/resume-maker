@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import api from "../services/api";
 
 export default function Home() {
   // Form state
@@ -43,31 +44,70 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // Form validation
+    if (!formData.name || !formData.email || !formData.message) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert('Please enter a valid email address');
+      return;
+    }
+    
     // Reset status
     setSubmitStatus(null);
     setIsSubmitting(true);
+    
+    // Set timeout to handle cases where server might be unreachable
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Request timed out')), 8000)
+    );
 
     try {
-      const response = await fetch('http://localhost:5000/api/feedback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
-
-      const data = await response.json();
+      // Race between actual request and timeout
+      const response = await Promise.race([
+        api.post('/feedback', formData),
+        timeoutPromise
+      ]);
+      
+      // If we get here, the API call succeeded
+      const data = response.data;
 
       if (data.success) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', message: '' });
+        
+        // Store the feedback locally as backup
+        try {
+          const storedFeedback = JSON.parse(localStorage.getItem('pendingFeedback') || '[]');
+          localStorage.setItem('pendingFeedback', JSON.stringify([
+            ...storedFeedback,
+            { ...formData, submittedAt: new Date().toISOString(), status: 'sent' }
+          ]));
+        } catch (err) {
+          console.error('Failed to store feedback locally:', err);
+        }
       } else {
         setSubmitStatus('error');
         console.error('Feedback submission failed:', data.message);
       }
     } catch (error) {
+      console.error('Network error:', error.response?.data?.message || error.message);
       setSubmitStatus('error');
-      console.error('Network error:', error);
+      
+      // Store the feedback locally when server is down
+      try {
+        const storedFeedback = JSON.parse(localStorage.getItem('pendingFeedback') || '[]');
+        localStorage.setItem('pendingFeedback', JSON.stringify([
+          ...storedFeedback,
+          { ...formData, submittedAt: new Date().toISOString(), status: 'pending' }
+        ]));
+      } catch (err) {
+        console.error('Failed to store feedback locally:', err);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -943,6 +983,41 @@ export default function Home() {
             animation: 'fadeInUp 0.8s ease-out 0.3s both'
           }}>
             {/* Success/Error Messages */}
+            {isSubmitting && (
+              <div style={{
+                backgroundColor: '#dbeafe',
+                border: '2px solid #3b82f6',
+                borderRadius: '12px',
+                padding: '16px',
+                marginBottom: '24px',
+                textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px'
+              }}>
+                <div style={{
+                  width: '20px',
+                  height: '20px',
+                  border: '3px solid #bfdbfe',
+                  borderRadius: '50%',
+                  borderTop: '3px solid #3b82f6',
+                  animation: 'spin 1s linear infinite'
+                }}></div>
+                <style>{`
+                  @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                  }
+                `}</style>
+                <div style={{
+                  color: '#1d4ed8',
+                  fontWeight: '500',
+                  fontSize: '16px'
+                }}>Sending your message...</div>
+              </div>
+            )}
+
             {submitStatus === 'success' && (
               <div style={{
                 backgroundColor: '#d1fae5',
@@ -983,7 +1058,21 @@ export default function Home() {
                 <div style={{
                   color: '#dc2626',
                   fontSize: '14px'
-                }}>Please try again or contact us directly at support@resumegenie.com</div>
+                }}>Our server might be down. Please try again later or contact us directly at support@resumegenie.com</div>
+                <button 
+                  onClick={() => setSubmitStatus(null)} 
+                  style={{
+                    marginTop: '12px',
+                    background: 'none',
+                    border: 'none',
+                    color: '#6366f1',
+                    textDecoration: 'underline',
+                    cursor: 'pointer',
+                    fontSize: '14px'
+                  }}
+                >
+                  Try again
+                </button>
               </div>
             )}
 
