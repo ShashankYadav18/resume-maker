@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import api from "../services/api";
 
 export default function Home() {
   // Form state
@@ -61,41 +60,29 @@ export default function Home() {
     setSubmitStatus(null);
     setIsSubmitting(true);
     
-    // Set timeout to handle cases where server might be unreachable
-    const timeoutPromise = new Promise((_, reject) => 
-      setTimeout(() => reject(new Error('Request timed out')), 8000)
-    );
-
     try {
-      // Race between actual request and timeout
-      const response = await Promise.race([
-        api.post('/feedback', formData),
-        timeoutPromise
-      ]);
-      
-      // If we get here, the API call succeeded
-      const data = response.data;
+      // Submit to Formspree
+      const response = await fetch('https://formspree.io/f/mreebwbl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message
+        })
+      });
 
-      if (data.success) {
+      if (response.ok) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', message: '' });
-        
-        // Store the feedback locally as backup
-        try {
-          const storedFeedback = JSON.parse(localStorage.getItem('pendingFeedback') || '[]');
-          localStorage.setItem('pendingFeedback', JSON.stringify([
-            ...storedFeedback,
-            { ...formData, submittedAt: new Date().toISOString(), status: 'sent' }
-          ]));
-        } catch (err) {
-          console.error('Failed to store feedback locally:', err);
-        }
       } else {
         setSubmitStatus('error');
-        console.error('Feedback submission failed:', data.message);
+        console.error('Feedback submission failed:', response.status);
       }
     } catch (error) {
-      console.error('Network error:', error.response?.data?.message || error.message);
+      console.error('Network error:', error.message);
       setSubmitStatus('error');
       
       // Store the feedback locally when server is down
