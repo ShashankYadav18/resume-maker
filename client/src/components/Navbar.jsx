@@ -14,7 +14,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" style={{textDecoration: 'none'}}>
             <span style={{fontSize: '24px', fontWeight: 'bold', color: '#7c3aed'}}>
-              ResumeGenie
+              ResumeDost
             </span>
           </Link>
 

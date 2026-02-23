@@ -769,7 +769,7 @@ export default function Home() {
             marginBottom: '60px',
             maxWidth: '600px',
             margin: '0 auto 60px auto'
-          }}>Join thousands of professionals who've landed their dream jobs with ResumeGenie</p>
+          }}>Join thousands of professionals who've landed their dream jobs with ResumeDost</p>
           
           <div style={{
             display: 'grid',
@@ -806,7 +806,7 @@ export default function Home() {
                 lineHeight: '1.6',
                 fontStyle: 'italic',
                 marginBottom: '24px'
-              }}>"ResumeGenie helped me land interviews at top tech companies. The AI suggestions were spot-on!"</p>
+              }}>"ResumeDost helped me land interviews at top tech companies. The AI suggestions were spot-on!"</p>
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -1045,7 +1045,7 @@ export default function Home() {
                 <div style={{
                   color: '#dc2626',
                   fontSize: '14px'
-                }}>Our server might be down. Please try again later or contact us directly at support@resumegenie.com</div>
+                }}>Our server might be down. Please try again later or contact us directly at support@resumedost.com</div>
                 <button 
                   onClick={() => setSubmitStatus(null)} 
                   style={{
@@ -1211,7 +1211,7 @@ export default function Home() {
                 fontWeight: 'bold',
                 color: '#7c3aed',
                 marginBottom: '16px'
-              }}>ResumeGenie</div>
+              }}>ResumeDost</div>
               <p style={{
                 color: '#94a3b8',
                 lineHeight: '1.6',
@@ -1356,7 +1356,7 @@ export default function Home() {
                 onMouseLeave={(e) => e.target.style.color = '#94a3b8'}>
                   Terms of Service
                 </a>
-                <a href="mailto:support@resumegenie.com" style={{
+                <a href="mailto:support@resumedost.com" style={{
                   color: '#94a3b8',
                   textDecoration: 'none',
                   transition: 'color 0.3s ease'
@@ -1383,7 +1383,7 @@ export default function Home() {
               color: '#94a3b8',
               margin: 0,
               fontSize: '14px'
-            }}>&copy; 2025 ResumeGenie. All rights reserved.</p>
+            }}>&copy; 2025 ResumeDost. All rights reserved.</p>
             <div style={{
               display: 'flex',
               gap: '24px',
